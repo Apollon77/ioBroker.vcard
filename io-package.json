@@ -1,0 +1,154 @@
+{
+    "common": {
+        "name":                     "vcard",
+        "version":                  "0.0.1",
+        "title":                    "vCard Adapter",
+        "desc":                     {
+            "en": "vcard Adapter",
+            "de": "vcard Adapter"
+        },
+        "platform":                 "Javascript/Node.js",
+        "mode":                     "daemon",
+        "icon":                     "vcard.png",
+        "extIcon":                  "",
+        "loglevel":                 "info",
+        "nondeletable":             true,
+        "keywords":                 ["vcard", "contacts"],
+        "type":                     "media",
+        "main":                     "vcard.js",
+        "authors": [
+            "hometm"
+        ],
+        "license":                  "MIT"
+    },
+    "native": {
+        "vcardPath": "c:/vCards.vcf"
+    },
+    "objects": [
+
+    ],
+    "instanceObjects":[
+        {
+            "_id":  "Inputs",
+            "type": "channel",
+            "common": {
+                "role": "Inputs",
+                "name": ""
+            },
+            "native": {}
+        },
+        {
+            "_id":  "Outputs",
+            "type": "channel",
+            "common": {
+                "role": "Outputs",
+                "name": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "Inputs.ReplacePhoneNumbers",
+            "type": "state",
+            "common": {
+                "name": "String source",
+                "type": "string",
+                "role": "",
+                "read": true,
+                "write": true,
+                "desc": "Input to replace phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbers",
+            "type": "state",
+            "common": {
+                "name": "String target",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of replaced phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.TodaysBirthdays",
+            "type": "state",
+            "common": {
+                "name": "List of persons",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of persons full name"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.FilteredFullNames",
+            "type": "state",
+            "common": {
+                "name": "Output full names",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of filtered persons full name"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.FilteredPhoneNumbers",
+            "type": "state",
+            "common": {
+                "name": "Output phone numbers",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of filtered phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.FilteredEmailAddresses",
+            "type": "state",
+            "common": {
+                "name": "Output email adresses",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of filtered email addresses"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.FilteredPostalAddresses",
+            "type": "state",
+            "common": {
+                "name": "Output postal addresses",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of filtered postal addresses"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Inputs.Filter",
+            "type": "state",
+            "common": {
+                "name": "Input filter",
+                "type": "string",
+
+                "read": true,
+                "write": true,
+                "desc": "Input for filter string"
+            },
+            "native": {}
+        }
+    ]
+}
