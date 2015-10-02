@@ -1,0 +1,50 @@
+{
+  "name": "iobroker.vcard",
+  "description": "This adapter reads vCards and offers the contained information.",
+  "version": "0.0.2",
+  "author": {
+    "name": "hometm",
+    "email": "hometm@gmx.de"
+  },
+  "contributors": [
+    {
+      "name": "hometm",
+      "email": "hometm@gmx.de"
+    }
+  ],
+  "homepage": "https://github.com/hometm/ioBroker.vcard",
+  "readme":   "https://github.com/hometm/ioBroker.vcard/blob/master/README.md",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "vcard",
+    "vcf",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hometm/ioBroker.vcard"
+  },
+  "dependencies": {
+    "vcard-json":    "~0.4.0",
+    "node-schedule": "~0.2.9"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-replace": "~0.8.0",
+    "grunt-contrib-jshint": "~0.11.1",
+    "grunt-jscs": "~1.6.0",
+    "grunt-http": "~1.6.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-exec": "~0.4.5"
+  },
+  "bugs": {
+    "url": "https://github.com/hometm/ioBroker.vcard/issues"
+  },
+  "main": "vcard.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

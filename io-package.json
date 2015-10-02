@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "vcard",
-        "version":                  "0.0.1",
+        "version":                  "0.0.2",
         "title":                    "vCard Adapter",
         "desc":                     {
             "en": "vcard Adapter",
@@ -10,7 +10,7 @@
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
         "icon":                     "vcard.png",
-        "extIcon":                  "",
+        "extIcon":                  "https://raw.githubusercontent.com/hometm/ioBroker.vcard/master/admin/vcard.png",
         "loglevel":                 "info",
         "nondeletable":             true,
         "keywords":                 ["vcard", "contacts"],
@@ -19,7 +19,8 @@
         "authors": [
             "hometm"
         ],
-        "license":                  "MIT"
+        "license":                  "MIT",
+        "readme":                   "https://github.com/hometm/ioBroker.vcard/blob/master/README.md"
     },
     "native": {
         "vcardPath": "c:/vCards.vcf"
