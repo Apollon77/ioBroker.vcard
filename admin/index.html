@@ -1,36 +1,47 @@
 <html>
 
-<!-- these 4 files always have to be included -->
 <link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
 <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery.fancytree-all.min.js"></script>
+<script type="text/javascript" src="../../lib/js/colResizable-1.5.min.js"></script>
+<script type="text/javascript" src="../../js/selectID.js"></script>
 
-
-<!-- optional: use jqGrid
-<link rel="stylesheet" type="text/css" href="../../lib/css/jqGrid/ui.jqgrid-4.5.4.css"/>
-<script type="text/javascript" src="../../lib/js/jqGrid/jquery.jqGrid-4.5.4.min.js"></script>
-<script type="text/javascript" src="../../lib/js/jqGrid/i18n/grid.locale-all.js"></script>
--->
-
-<!-- optional: use multiselect
-<link rel="stylesheet" type="text/css" href="../../lib/css/jquery.multiselect-1.13.css"/>
-<script type="text/javascript" src="../../lib/js/jquery.multiselect-1.13.min.js"></script>
--->
-
-<!-- these two file always have to be included -->
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 <script type="text/javascript" src="../../js/translate.js"></script>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
 
 
-<!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
 
     // Dictionary (systemDictionary is global variable from adapter-settings.js)
     systemDictionary = {
-        "vcard adapter settings": {"de": "vcard adapter Einstellungen","en": "vcard adapter settings", "ru": "Тест"},
-        "Path to vcard file":      {"de": "Pfad zum vcard file", "en": "Path to vcard file", "ru": "Тест"}
+        "vcard adapter settings": {"de": "vCard adapter Einstellungen","en": "vCard adapter settings", "ru": "Настройки драйвера vCard"},
+        "Path to vcard file:":   {"de": "Pfad zum vCard file:",   "en": "Path to vCard file:",     "ru": "Путь к vCard файлу:"},
+        "Datapoint:":           {"en": "Datapoint:",            "de": "Datenpunkt:",            "ru": "Что изменять:"},
+        "Select":               {"en": "Select",                "de": "Auswählen",              "ru": "Выбрать"},
+        "Ok":                   {"en": "Ok",                    "de": "Ok",                     "ru": "Ok"},
+        "Cancel":               {"en": "Cancel",                "de": "Abbrechen",              "ru": "Отмена"},
+        "All":                  {"en": "All",                   "de": "Alle",                   "ru": "все"},
+        "ID":                   {"en": "ID",                    "de": "ID",                     "ru": "ID"},
+        "name":                 {"en": "name",                  "de": "Name",                   "ru": "Имя"},
+        "Name":                 {"en": "Name",                  "de": "Name",                   "ru": "Имя"},
+        "Role":                 {"en": "Role",                  "de": "Rolle",                  "ru": "Роль"},
+        "Room":                 {"en": "Room",                  "de": "Raum",                   "ru": "Комната"},
+        "Value":                {"en": "Value",                 "de": "Wert",                   "ru": "Значение"},
+        "Select ID":            {"en": "Select ID",             "de": "ID Auswählen",           "ru": "Выбрать ID"},
+        "From":                 {"en": "From: ",                "de": "Von",                    "ru": "От"},
+        "Last changed":         {"en": "Last changed",          "de": "Letzte Änderung",        "ru": "Изменён"},
+        "Time stamp":           {"en": "Time stamp",            "de": "Zeitstempel",            "ru": "Время"},
+        "Processing...":        {"en": "Processing...",         "de": "Bearbeite...",           "ru": "Обработка..."},
+        "Acknowledged":         {"en": "Acknowledged",          "de": "Bestätigt",              "ru": "Подтверждён"},
+        "Filter:":              {"en": "Filter:",               "de": "Filter:",                "ru": "Фильтр:"},
+        "id":                   {"en": "ID",                    "de": "ID",                     "ru": "ID"},
+        "Select all":           {"en": "Select all",            "de": "Alle auswählen",         "ru": "Выбрать все видимые"},
+        "Deselect all":         {"en": "Deselect all",          "de": "Auswahl aufheben",       "ru": "Убрать выделение"},
+        "Invert selection":     {"en": "Invert selection",      "de": "Selektierung invertieren", "ru": "Инвертировать выделение"}
     };
 
     // the function loadSettings has to exist ...
@@ -44,6 +55,18 @@
                 $('#' + key + '.value').val(settings[key]).change(onChange).keyup(onChange);
             }
         }
+
+        $('#select').click(function () {
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#dp').val(), function (newId) {
+                    if (newId != $('#dp').val()) {
+                        $('#dp').val(newId);
+                        onChange();
+                    }
+                });
+            });
+        });
+
         // Signal to admin, that no changes yet
         onChange(false);
     }
@@ -59,6 +82,44 @@
         });
         callback(obj);
     }
+
+    var selectId;
+    function initSelectId (cb) {
+        if (selectId) return cb(selectId);
+        socket.emit('getObjects', function (err, res) {
+            if (!err && res) {
+                selectId = $('#dialog-select-member').selectId('init',  {
+                    noMultiselect: true,
+                    objects: res,
+                    imgPath:       '../../lib/css/fancytree/',
+                    filter:        {type: 'state'},
+                    name:          'vcard-select-state',
+                    texts: {
+                        select:          _('Select'),
+                        cancel:          _('Cancel'),
+                        all:             _('All'),
+                        id:              _('ID'),
+                        name:            _('Name'),
+                        role:            _('Role'),
+                        room:            _('Room'),
+                        value:           _('Value'),
+                        selectid:        _('Select ID'),
+                        from:            _('From'),
+                        lc:              _('Last changed'),
+                        ts:              _('Time stamp'),
+                        wait:            _('Processing...'),
+                        ack:             _('Acknowledged'),
+                        selectAll:       _('Select all'),
+                        unselectAll:     _('Deselect all'),
+                        invertSelection: _('Invert selection')
+                    },
+                    columns: ['image', 'name', 'role', 'room']
+                });
+                cb && cb(selectId);
+            }
+        });
+    }
+
 </script>
 
 <!-- you have to put your config page in a div with id adapter-container -->
@@ -72,14 +133,18 @@
 
     <table>
         <tr>
-            <td class="translate">Path to vcard file</td>
+            <td class="translate">Path to vcard file:</td>
             <td> <input class="value" id="vcardPath"/></td>
         </tr>
+    <tr>
+        <td class="translate">Datapoint:</td>
+        <td> <input class="value" id="dp"/><button id="select">...</button></td>
+    </tr>
+
     </table>
     </p>
 
-    <p class="translate">on save adapter restarts with new config immediately</p>
-
+    <div id="dialog-select-member" style="display:none"></div>
 </div>
 
 </html>
