@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "vcard",
-        "version":                  "0.0.2",
+        "version":                  "0.0.3",
         "title":                    "vCard Adapter",
         "desc":                     {
             "en": "vcard Adapter",
@@ -23,7 +23,19 @@
         "readme":                   "https://github.com/hometm/ioBroker.vcard/blob/master/README.md"
     },
     "native": {
-        "vcardPath": "c:/vCards.vcf"
+        "vcardPath":                "c:/vCards.vcf",
+        "styleHeader1":             "<style type=\"text/css\">spanVcard {display: inline-block;width: 300px;}</style>",
+        "stylePrefix1":             "<spanVcard>",
+        "stylePostfix1":            "</spanVcard>",
+        "object1":                  "fritzbox.0.history.allTableHTML",
+        "styleHeader2":             "<style type=\"text/css\">spanVcard {display: inline-block;width: 100px;}</style>",
+        "stylePrefix2":             "<spanVcard>",
+        "stylePostfix2":            "</spanVcard>",
+        "object2":                  "",
+        "styleHeader3":             "",
+        "stylePrefix3":             "",
+        "stylePostfix3":            "",
+        "object3":                  ""
     },
     "objects": [
 
@@ -48,7 +60,7 @@
             "native": {}
         },
         {
-            "_id": "Inputs.ReplacePhoneNumbers",
+            "_id": "Inputs.ReplacePhoneNumbersCh1",
             "type": "state",
             "common": {
                 "name": "String source",
@@ -61,7 +73,59 @@
             "native": {}
         },
         {
-            "_id": "Outputs.ReplacedPhoneNumbers",
+            "_id": "Inputs.ReplacePhoneNumbersCh2",
+            "type": "state",
+            "common": {
+                "name": "String source",
+                "type": "string",
+                "role": "",
+                "read": true,
+                "write": true,
+                "desc": "Input to replace phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Inputs.ReplacePhoneNumbersCh3",
+            "type": "state",
+            "common": {
+                "name": "String source",
+                "type": "string",
+                "role": "",
+                "read": true,
+                "write": true,
+                "desc": "Input to replace phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbersCh1",
+            "type": "state",
+            "common": {
+                "name": "String target",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of replaced phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbersCh2",
+            "type": "state",
+            "common": {
+                "name": "String target",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of replaced phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbersCh3",
             "type": "state",
             "common": {
                 "name": "String target",

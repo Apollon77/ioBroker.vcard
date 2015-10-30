@@ -12,29 +12,51 @@ c) output of postal addresses on Outputs.FilteredPostalAddresses.
 d) output of email addresses on Outputs.FilteredEmailAddresses.
 e) the output of a)b)c) and d) can be triggered by setting a search pattern (which is performed on full name)to 
 Inputs.Filter. This filter works case in-sensitive.  
-f) if a value is set to Inputs.ReplacePhoneNumbers, all phone numbers inside this value are replaced by the 
-appropriate full name. The output is written to Outputs.ReplacedPhoneNumbers. Thr replacement ignores the starting 
-'0' and '+49' in German phone numbers.  
+f) if a value is set to Inputs.ReplacePhoneNumbersChX (X: is channel number), all phone numbers inside this value are replaced by the
+appropriate full name. The output is written to Outputs.ReplacedPhoneNumbersChX. The replacement ignores the starting
+'0' and '+49' in German phone numbers. Inputs.ReplacePhoneNumbersChX can be set manually, via script or direct linked.
+ For direct linking, enter the appropriate object inside settings.
 g) Outputs.TodaysBirthdays shows the full name of any persons, which has birthday today.  
-h) if there are multiple results at an output, the different results are separated by an HTML line break.  
+h) if there are multiple results at one output, the different results are separated by an HTML line break.  
+ 
 
-_Up to now, the adapter was tested with "Mac contacts" (vCard file version 3.0)._  
+_Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" (vCard file version 3.0)._  
+
+###CSS Example (for fixed column width):
+**Style Header:**  
+ `<style type="text/css">  
+ spanVcard {  
+ display: inline-block;  
+ width: 300px;  
+ }  
+ </style>`  
+ 
+**Style Prefix:**  
+ `<spanVcard>`  
+ 
+**Style Postfix:**   
+`</spanVcard>`
 
 ##Prerequirements:
 - [ioBroker](http://www.ioBroker.net "ioBroker homepage")
 
-- vcard-json (version >= 0.4.0), in older versions, there is an error regarding email addresses
-- node-schedule (version >= 0.2.9
+
 
 ##Change log:
 
-0.0.2 (2015-10-02)  
+###0.0.3 (2015-10-25)
+* Three channels for replacing numbers
+* Channels can be connected to outputs of other adapters (no script needed)
+* Replaced names can be formated by CSS  
+* VCF files can be read via http
+
+
+###0.0.2 (2015-10-02)
 * Documentation updates
 * Missing icon
 * vcard-json issue with white spaces (inside Outlook files)
 
-0.0.1 (2015-09-18)  
+###0.0.1 (2015-09-18)
 * Initial version
 
 ##LOP:  
-* Open file via http

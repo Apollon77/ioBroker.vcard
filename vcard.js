@@ -30,6 +30,11 @@
      C:\Program Files\ioBroker\node_modules\iobroker.vcard\lib>npm install node-schedule
 
 
+
+
+
+
+
  */
 
 
@@ -38,9 +43,12 @@
 // you have to require the utils module and call adapter function
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var schedule =     require('node-schedule');
+var fs = require ('fs');
 var dailyScheduler=null;
 var vcard =  require('vcard-json');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var vcards=null;                      // Speicher fuer alle vCards. Werden nur beim Adapter-Start geladen
+
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
@@ -68,11 +76,40 @@ adapter.on('stateChange', function (id, state) {
                 getPostalAddress(state.val);
                 getPhoneNumbers(state.val);
                 ackFilter();
-        } else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbers') {
-            performNumberString(state.val);
+        } else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh1') {
+            performNumberString(state.val, 1);
+            return;
+        }else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh2') {
+            performNumberString(state.val, 2);
+            return;
+        }else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh3') {
+            performNumberString(state.val, 3);
+            return;
+        }
+    }
+    if(state) {
+        if (adapter.config.object1) {
+            if (adapter.config.object1 == id) {
+                performNumberString(state.val, 1);
+                return;
+            }
+        }
+        if (adapter.config.object2) {
+            if (adapter.config.object2 == id) {
+                performNumberString(state.val, 2);
+                return;
+            }
+        }
+        if (adapter.config.object3) {
+            if (adapter.config.object3 == id) {
+                performNumberString(state.val, 3);
+                return;
+            }
         }
     }
 });
+
+
 
 
 
@@ -86,6 +123,18 @@ function main() {
     //adapter.log.info('DEBUG VERSION');
     // in this example all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
+    adapter.subscribeObjects('*');
+
+    //prüfen ob Kanal durch objekt getriggert wird
+    if(adapter.config.object1){
+        adapter.subscribeForeignStates(adapter.config.object1);
+    }
+    if(adapter.config.object2){
+        adapter.subscribeForeignStates(adapter.config.object2);
+    }
+    if(adapter.config.object3){
+        adapter.subscribeForeignStates(adapter.config.object3);
+    }
 
 
     // Einlesen der vcard-Datei
@@ -94,58 +143,24 @@ function main() {
         return;
     }
 
-    /*
-     //pruefen ob Zugriff via http
-     if(adapter.config.vcardPath.toLowerCase().indexOf('http://')>-1){
-     var xmlHttp=new XMLHttpRequest();
-     xmlHttp.open('GET',adapter.config.vcardPath, false );
-     xmlHttp.send(null);
-
-     if(!xmlHttp.responseText) {
-     adapter.log.error('Error reading vcards via HTTP: '+ adapter.config.vcardPath);
-     adapter.log.error(xmlHttp.statusText);
-     return;
-     }
-     vcards=vcard.parseVcard(xmlHttp.responseText);
-     }*/
-
     try {
-        vcard.parseFile(adapter.config.vcardPath, function (err, data) {
-            if (err) {
-                adapter.log.error('Error reading vcards: ' + err.message);
-            }
-            else {
-                adapter.log.info('Found ' + data.length + ' vcards in file');
-                vcards = data;
-                try {
-                    for (var contact = 0; contact < vcards.length; contact++) {
-                        for (var i = 0; i < vcards[contact].phone.length; i++) {
-                            if (vcards[contact].phone[i].value.indexOf('0049') == 0) {
-                                //wenn Nummer mit 0049 beginnt, aendern in +49
-                                if (vcards[contact].phone[i].value.length > 4)
-                                    vcards[contact].phone[i].value = '+49' + vcards[contact].phone[i].value.substring(4, vcards[contact].phone[i].value.length);
-                            }
-                            else if (vcards[contact].phone[i].value.indexOf('00') == 0) {
-                                //wenn Nummer mit Landesvorwahl (0049,0031...) beginnt
-                                vcards[contact].phone[i].value = '+' + vcards[contact].phone[i].value.substring(2, vcards[contact].phone[i].value.length);
-                            }
-                            else if (vcards[contact].phone[i].value.indexOf('0') == 0) {
-                                //wenn Nummer mit 0 beginnt (z.B. 0721), aendern in +49721. Die deutsche Landesvorwahl wird hier als default genommen
-                                if (vcards[contact].phone[i].value.length > 1)
-                                    vcards[contact].phone[i].value = '+49' + vcards[contact].phone[i].value.substring(1, vcards[contact].phone[i].value.length);
-                            }
-                        }
-                    }
-                }
-                catch (e) {
-                    adapter.log.error('Error interpreting file: ' + e.message);
-                    return;
-                }
+         //pruefen ob Zugriff via http
+         if(adapter.config.vcardPath.toLowerCase().indexOf('http://')>-1){
+             var xmlHttp=new XMLHttpRequest();
+             xmlHttp.open('GET',adapter.config.vcardPath, false );
+             xmlHttp.send(null);
 
-            }
+             if(!xmlHttp.responseText) {
+                 adapter.log.error('Error reading vcards via HTTP: '+ adapter.config.vcardPath);
+                 adapter.log.error(xmlHttp.statusText);
+                 return;
+             }
+            vcards= vcard.parseVcardString(xmlHttp.responseText,function (err, data){vCardDataReceived(err,data)});
+         }
+         else {
 
-            getTodayBirthdayPersons();
-        });
+             vcard.parseVcardFile(adapter.config.vcardPath, function (err, data){vCardDataReceived(err,data)});
+         }
 
         dailyScheduler = schedule.scheduleJob({hour: 0, minute: 1}, function () {
             getTodayBirthdayPersons();
@@ -157,14 +172,72 @@ function main() {
 
 
 
+function vCardDataReceived(err, data) {
+    if (err) {
+        adapter.log.error('Error reading vcards: ' + err.message);
+    }
+    else{
+        adapter.log.info('Found ' + data.length + ' vcards in file');
+        vcards = data;
+        try {
+            for (var contact = 0; contact < vcards.length; contact++) {
+                for (var i = 0; i < vcards[contact].phone.length; i++) {
+                    if (vcards[contact].phone[i].value.indexOf('0049') == 0) {
+                        //wenn Nummer mit 0049 beginnt, aendern in +49
+                        if (vcards[contact].phone[i].value.length > 4)
+                            vcards[contact].phone[i].value = '+49' + vcards[contact].phone[i].value.substring(4, vcards[contact].phone[i].value.length);
+                    }
+                    else if (vcards[contact].phone[i].value.indexOf('00') == 0) {
+                        //wenn Nummer mit Landesvorwahl (0049,0031...) beginnt
+                        vcards[contact].phone[i].value = '+' + vcards[contact].phone[i].value.substring(2, vcards[contact].phone[i].value.length);
+                    }
+                    else if (vcards[contact].phone[i].value.indexOf('0') == 0) {
+                        //wenn Nummer mit 0 beginnt (z.B. 0721), aendern in +49721. Die deutsche Landesvorwahl wird hier als default genommen
+                        if (vcards[contact].phone[i].value.length > 1)
+                            vcards[contact].phone[i].value = '+49' + vcards[contact].phone[i].value.substring(1, vcards[contact].phone[i].value.length);
+                    }
+                }
+            }
+        }
+        catch (e) {
+            adapter.log.error('Error interpreting file: ' + e.message);
+            return;
+        }
+
+    }
+
+    getTodayBirthdayPersons();
+}
 
 
 // String nach Zahlen durchsuchen
-function performNumberString (srcString) {
+function performNumberString (srcString, ch) {
     var minNumberLength = 4;
     var rtn = "";
+    var cssHeader="";
+    var cssPrefix="";
+    var cssPostfix="";
 
-    adapter.setState('Inputs.ReplacePhoneNumbers', {val: srcString, ack: true});
+    if(!ch)
+        return;
+    if(ch==1){
+        cssHeader=adapter.config.styleHeader1;
+        cssPrefix=adapter.config.stylePrefix1;
+        cssPostfix=adapter.config.stylePostfix1;
+    }else if(ch==2){
+        cssHeader=adapter.config.styleHeader2;
+        cssPrefix=adapter.config.stylePrefix2;
+        cssPostfix=adapter.config.stylePostfix2;
+    }else if(ch==3){
+        cssHeader=adapter.config.styleHeader3;
+        cssPrefix=adapter.config.stylePrefix3;
+        cssPostfix=adapter.config.stylePostfix3;
+    }else {
+        return;
+    }
+    rtn=cssHeader;
+
+    adapter.setState('Inputs.ReplacePhoneNumbersCh'+ch, {val: srcString, ack: true});
 
     if (!srcString)
         return "";
@@ -213,7 +286,13 @@ function performNumberString (srcString) {
             // nummer ist lang genug
 
             var nn=srcString.substring(strtIndex, (endIndex+1));
-            rtn += getNameToNumber(nn);;
+            rtn +=cssPrefix+ getNameToNumber(nn)+cssPostfix;
+
+            //entfernen der folgenden leerzeichen, wenn postfix vorhanden
+            if(cssPostfix)
+                while(srcString.charAt(iBS+1)==' '|| srcString.charAt(iBS+1)=='   '){
+                    iBS++
+                }
 
             strtIndex = -1;
             endIndex = -1;
@@ -224,7 +303,7 @@ function performNumberString (srcString) {
         }
     }
 
-    adapter.setState('Outputs.ReplacedPhoneNumbers', rtn);
+    adapter.setState('Outputs.ReplacedPhoneNumbersCh'+ch, rtn);
 }
 
 
@@ -400,6 +479,8 @@ function getPhoneNumbers(pattern){
 
     adapter.setState('Outputs.FilteredPhoneNumbers', ret);
 }
+
+
 
 // Setzt Filter ack
 function ackFilter(){

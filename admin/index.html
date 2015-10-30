@@ -15,7 +15,6 @@
 
 
 <script type="text/javascript">
-
     // Dictionary (systemDictionary is global variable from adapter-settings.js)
     systemDictionary = {
         "vcard adapter settings": {"de": "vCard adapter Einstellungen","en": "vCard adapter settings", "ru": "Настройки драйвера vCard"},
@@ -43,7 +42,6 @@
         "Deselect all":         {"en": "Deselect all",          "de": "Auswahl aufheben",       "ru": "Убрать выделение"},
         "Invert selection":     {"en": "Invert selection",      "de": "Selektierung invertieren", "ru": "Инвертировать выделение"}
     };
-
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
         // example: select elements with id=key and class=value and insert value
@@ -55,22 +53,39 @@
                 $('#' + key + '.value').val(settings[key]).change(onChange).keyup(onChange);
             }
         }
-
-        $('#select').click(function () {
+        $('#select1').click(function () {
             initSelectId(function (sid) {
-                sid.selectId('show', $('#dp').val(), function (newId) {
-                    if (newId != $('#dp').val()) {
-                        $('#dp').val(newId);
+                sid.selectId('show', $('#object1').val(), function (newId) {
+                    if (newId != $('#object1').val()) {
+                        $('#object1').val(newId);
                         onChange();
                     }
                 });
             });
         });
-
+        $('#select2').click(function () {
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#object2').val(), function (newId) {
+                    if (newId != $('#object2').val()) {
+                        $('#object2').val(newId);
+                        onChange();
+                    }
+                });
+            });
+        });
+        $('#select3').click(function () {
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#object3').val(), function (newId) {
+                    if (newId != $('#object3').val()) {
+                        $('#object3').val(newId);
+                        onChange();
+                    }
+                });
+            });
+        });
         // Signal to admin, that no changes yet
         onChange(false);
     }
-
     // ... and the function save has to exist.
     // you have to make sure the callback is called with the settings object as first param!
     function save(callback) {
@@ -82,7 +97,6 @@
         });
         callback(obj);
     }
-
     var selectId;
     function initSelectId (cb) {
         if (selectId) return cb(selectId);
@@ -119,7 +133,6 @@
             }
         });
     }
-
 </script>
 
 <!-- you have to put your config page in a div with id adapter-container -->
@@ -129,20 +142,95 @@
         <td><img src="vcard.png"/></td>
         <td><h3 class="translate">vcard adapter settings</h3></td>
     </tr></table>
-    <p>
 
+
+
+
+    <p>
     <table>
         <tr>
             <td class="translate">Path to vcard file:</td>
             <td> <input class="value" id="vcardPath"/></td>
         </tr>
-    <tr>
-        <td class="translate">Datapoint:</td>
-        <td> <input class="value" id="dp"/><button id="select">...</button></td>
-    </tr>
 
     </table>
     </p>
+
+    <table class="cfg">
+
+        <tr>
+            <th style="width:20%" class="translate" >
+                Channel
+            </th>
+            <th style="width:20%" class="translate" >
+                Style Header
+            </th>
+            <th style="width:20%" class="translate" >
+                Style Prefix
+            </th>
+            <th style="width:20%" class="translate" >
+                Style Postfix
+            </th>
+            <th style="width:20%" class="translate" >
+                Input Object
+            </th>
+        </tr>
+        <tr>
+            <td >
+                <p>Channel1</p>
+            </td>
+            <td>
+                <textarea id="styleHeader1"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePrefix1" rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePostfix1"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <input class="value" id="object1"/>
+                <button id="select1">...</button>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <p>Channel2</p>
+            </td>
+            <td>
+                <textarea id="styleHeader2"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePrefix2" rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePostfix2"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <input class="value" id="object2"/>
+                <button id="select2">...</button>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <p>Channel3</p>
+            </td>
+            <td>
+                <textarea id="styleHeader3"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePrefix3" rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <textarea id="stylePostfix3"  rows="5" class="value"></textarea>
+            </td>
+            <td>
+                <input class="value" id="object3"/>
+                <button id="select3">...</button>
+            </td>
+        </tr>
+    </table>
+
 
     <div id="dialog-select-member" style="display:none"></div>
 </div>
