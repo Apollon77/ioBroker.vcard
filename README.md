@@ -19,8 +19,15 @@ appropriate full name. The output is written to Outputs.ReplacedPhoneNumbersChX.
 g) Outputs.TodaysBirthdays shows the full name of any persons, which has birthday today.  
 h) if there are multiple results at one output, the different results are separated by an HTML line break.  
  
-
+ 
 _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" (vCard file version 3.0)._  
+
+###VCF Path:
+* Windows: c:/data/vcard.vcf  
+* Linux: /tmp/vcard.vcf  
+* http: http://192.168.1.1/data/vcard.vcf  
+* http (FritzBox Nas): http://192.168.1.1/nas/filelink.lua?id=164fe89123456789  
+
 
 ###CSS Example (for fixed column width):
 **Style Header:**  
@@ -59,4 +66,4 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 ###0.0.1 (2015-09-18)
 * Initial version
 
-##LOP:  
+  
