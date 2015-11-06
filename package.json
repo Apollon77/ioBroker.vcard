@@ -1,7 +1,7 @@
 {
   "name": "iobroker.vcard",
   "description": "This adapter reads vCards and offers the contained information.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "hometm",
     "email": "hometm@gmx.de"
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "vcard-json":    "~0.5.0",
-    "node-schedule": "~0.2.9"
+    "node-schedule": "~0.2.9",
+    "xmlhttprequest": "~1.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

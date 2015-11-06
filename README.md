@@ -19,7 +19,7 @@ appropriate full name. The output is written to Outputs.ReplacedPhoneNumbersChX.
 g) Outputs.TodaysBirthdays shows the full name of any persons, which has birthday today.  
 h) if there are multiple results at one output, the different results are separated by an HTML line break.  
  
- 
+
 _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" (vCard file version 3.0)._  
 
 ###VCF Path:
@@ -51,6 +51,9 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 ##Change log:
 
+###0.0.4 (2015-11-6)  
+* Missing dependency  
+
 ###0.0.3 (2015-10-25)
 * Three channels for replacing numbers
 * Channels can be connected to outputs of other adapters (no script needed)
@@ -66,4 +69,4 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 ###0.0.1 (2015-09-18)
 * Initial version
 
-  
+##LOP:  
