@@ -155,7 +155,8 @@ function main() {
                  adapter.log.error(xmlHttp.statusText);
                  return;
              }
-            vcards= vcard.parseVcardString(xmlHttp.responseText,function (err, data){vCardDataReceived(err,data)});
+            //vcards=
+                vcard.parseVcardString(xmlHttp.responseText,function (err, data){vCardDataReceived(err,data)});
          }
          else {
 
@@ -220,6 +221,11 @@ function performNumberString (srcString, ch) {
 
     if(!ch)
         return;
+
+
+
+
+
     if(ch==1){
         cssHeader=adapter.config.styleHeader1;
         cssPrefix=adapter.config.stylePrefix1;
@@ -304,6 +310,20 @@ function performNumberString (srcString, ch) {
     }
 
     adapter.setState('Outputs.ReplacedPhoneNumbersCh'+ch, rtn);
+
+
+    if(ch==1){
+        if(adapter.config.object1== adapter.config.object2) {
+            performNumberString(srcString, 2);
+        }
+        if(adapter.config.object1== adapter.config.object3) {
+            performNumberString(srcString, 3);
+        }
+    }else if(ch==2){
+        if( adapter.config.object2== adapter.config.object3) {
+            performNumberString(srcString, 3);
+        }
+    }
 }
 
 

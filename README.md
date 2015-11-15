@@ -32,17 +32,19 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 ###CSS Example (for fixed column width):
 **Style Header:**  
  `<style type="text/css">  
- spanVcard {  
+ spanVcard1 {  
  display: inline-block;  
  width: 300px;  
  }  
  </style>`  
  
 **Style Prefix:**  
- `<spanVcard>`  
+ `<spanVcard1>`  
  
 **Style Postfix:**   
-`</spanVcard>`
+`</spanVcard1>`
+
+**Note: Each channel needs its own tag (e.g. spanVcard1, spanVcard2, spanVcard2)!**
 
 ##Prerequirements:
 - [ioBroker](http://www.ioBroker.net "ioBroker homepage")
@@ -50,6 +52,11 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 
 ##Change log:
+
+###0.0.5 (2015-11-15)
+* Reading contacts via http updated  
+* Multiple channels subscribed to one output fixed  
+* CSS Example updated
 
 ###0.0.4 (2015-11-6)  
 * Missing dependency  
