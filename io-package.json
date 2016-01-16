@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "vcard",
-        "version":                  "0.0.5",
+        "version":                  "0.0.6",
         "title":                    "vCard Adapter",
         "desc":                     {
             "en": "vcard Adapter",

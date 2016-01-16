@@ -155,8 +155,8 @@ function main() {
                  adapter.log.error(xmlHttp.statusText);
                  return;
              }
-            //vcards=
-                vcard.parseVcardString(xmlHttp.responseText,function (err, data){vCardDataReceived(err,data)});
+
+             vcard.parseVcardString(xmlHttp.responseText,function (err, data){vCardDataReceived(err,data)});
          }
          else {
 

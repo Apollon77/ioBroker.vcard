@@ -44,7 +44,7 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 **Style Postfix:**   
 `</spanVcard1>`
 
-**Note: Each channel needs its own tag (e.g. spanVcard1, spanVcard2, spanVcard2)!**
+**Note: Each channel needs its own tag (e.g. spanVcard1, spanVcard2, spanVcard3)!**
 
 ##Prerequirements:
 - [ioBroker](http://www.ioBroker.net "ioBroker homepage")
@@ -52,6 +52,10 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 
 ##Change log:
+
+###0.0.6 (2015-01-16)
+* Typos  
+* Readme updated  
 
 ###0.0.5 (2015-11-15)
 * Reading contacts via http updated  
@@ -77,3 +81,29 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 * Initial version
 
 ##LOP:  
+* Reading contacts via CardDav
+
+
+
+## License
+The MIT License (MIT)
+
+Copyright (c) 2016 hometm 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
