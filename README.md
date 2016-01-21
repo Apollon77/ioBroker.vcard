@@ -1,3 +1,4 @@
+![Logo](admin/vcard.png)
 #vCard Adapter for ioBroker
 
 ##Description:
