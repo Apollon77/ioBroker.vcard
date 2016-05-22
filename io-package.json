@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "vcard",
-        "version":                  "0.0.6",
+        "version":                  "0.0.7",
         "title":                    "vCard Adapter",
         "desc":                     {
             "en": "vcard Adapter",
@@ -99,6 +99,32 @@
             "native": {}
         },
         {
+            "_id": "Inputs.ReplacePhoneNumbersCh4",
+            "type": "state",
+            "common": {
+                "name": "String source",
+                "type": "string",
+                "role": "",
+                "read": true,
+                "write": true,
+                "desc": "Input to replace phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Inputs.ReplacePhoneNumbersCh5",
+            "type": "state",
+            "common": {
+                "name": "String source",
+                "type": "string",
+                "role": "",
+                "read": true,
+                "write": true,
+                "desc": "Input to replace phone numbers"
+            },
+            "native": {}
+        },
+        {
             "_id": "Outputs.ReplacedPhoneNumbersCh1",
             "type": "state",
             "common": {
@@ -126,6 +152,32 @@
         },
         {
             "_id": "Outputs.ReplacedPhoneNumbersCh3",
+            "type": "state",
+            "common": {
+                "name": "String target",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of replaced phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbersCh4",
+            "type": "state",
+            "common": {
+                "name": "String target",
+                "type": "string",
+                "role": "indicator.state",
+                "read": true,
+                "write": true,
+                "desc": "Output of replaced phone numbers"
+            },
+            "native": {}
+        },
+        {
+            "_id": "Outputs.ReplacedPhoneNumbersCh5",
             "type": "state",
             "common": {
                 "name": "String target",

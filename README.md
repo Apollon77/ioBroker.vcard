@@ -45,7 +45,7 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 **Style Postfix:**   
 `</spanVcard1>`
 
-**Note: Each channel needs its own tag (e.g. spanVcard1, spanVcard2, spanVcard3)!**
+**Note: Each channel needs its own tag (e.g. spanVcard1, spanVcard2, spanVcard3, spanVcard4, spanVcard5)!**
 
 ##Prerequirements:
 - [ioBroker](http://www.ioBroker.net "ioBroker homepage")
@@ -53,6 +53,10 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 
 ##Change log:
+
+###0.0.7 (2016-05-21)
+* Typos  
+* Readme updated  
 
 ###0.0.6 (2015-01-16)
 * Typos  

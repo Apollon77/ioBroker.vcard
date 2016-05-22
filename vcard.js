@@ -85,6 +85,12 @@ adapter.on('stateChange', function (id, state) {
         }else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh3') {
             performNumberString(state.val, 3);
             return;
+        }else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh4') {
+            performNumberString(state.val, 4);
+            return;
+        }else if (id == adapter.namespace + '.Inputs.ReplacePhoneNumbersCh5') {
+            performNumberString(state.val, 5);
+            return;
         }
     }
     if(state) {
@@ -103,6 +109,18 @@ adapter.on('stateChange', function (id, state) {
         if (adapter.config.object3) {
             if (adapter.config.object3 == id) {
                 performNumberString(state.val, 3);
+                return;
+            }
+        }
+        if (adapter.config.object4) {
+            if (adapter.config.object4 == id) {
+                performNumberString(state.val, 4);
+                return;
+            }
+        }
+        if (adapter.config.object5) {
+            if (adapter.config.object5 == id) {
+                performNumberString(state.val, 5);
                 return;
             }
         }
@@ -134,6 +152,12 @@ function main() {
     }
     if(adapter.config.object3){
         adapter.subscribeForeignStates(adapter.config.object3);
+    }
+    if(adapter.config.object4){
+        adapter.subscribeForeignStates(adapter.config.object4);
+    }
+    if(adapter.config.object5){
+        adapter.subscribeForeignStates(adapter.config.object5);
     }
 
 
@@ -223,9 +247,6 @@ function performNumberString (srcString, ch) {
         return;
 
 
-
-
-
     if(ch==1){
         cssHeader=adapter.config.styleHeader1;
         cssPrefix=adapter.config.stylePrefix1;
@@ -238,7 +259,15 @@ function performNumberString (srcString, ch) {
         cssHeader=adapter.config.styleHeader3;
         cssPrefix=adapter.config.stylePrefix3;
         cssPostfix=adapter.config.stylePostfix3;
-    }else {
+    }else if(ch==4){
+        cssHeader=adapter.config.styleHeader4;
+        cssPrefix=adapter.config.stylePrefix4;
+        cssPostfix=adapter.config.stylePostfix4;
+    }else if(ch==5){
+        cssHeader=adapter.config.styleHeader5;
+        cssPrefix=adapter.config.stylePrefix5;
+        cssPostfix=adapter.config.stylePostfix5;
+    } else {
         return;
     }
     rtn=cssHeader;
@@ -319,9 +348,32 @@ function performNumberString (srcString, ch) {
         if(adapter.config.object1== adapter.config.object3) {
             performNumberString(srcString, 3);
         }
+        if(adapter.config.object1== adapter.config.object4) {
+            performNumberString(srcString, 4);
+        }
+        if(adapter.config.object1== adapter.config.object5) {
+            performNumberString(srcString, 5);
+        }
     }else if(ch==2){
         if( adapter.config.object2== adapter.config.object3) {
             performNumberString(srcString, 3);
+        }
+        if( adapter.config.object2== adapter.config.object4) {
+            performNumberString(srcString, 4);
+        }
+        if( adapter.config.object2== adapter.config.object5) {
+            performNumberString(srcString, 5);
+        }
+    }else if(ch==3){
+        if( adapter.config.object3== adapter.config.object4) {
+            performNumberString(srcString, 4);
+        }
+        if( adapter.config.object3== adapter.config.object5) {
+            performNumberString(srcString, 5);
+        }
+    }else if(ch==4){
+        if( adapter.config.object4== adapter.config.object5) {
+            performNumberString(srcString, 5);
         }
     }
 }
