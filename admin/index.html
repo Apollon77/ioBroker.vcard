@@ -97,6 +97,26 @@
                 });
             });
         });
+        $('#select4').click(function () {
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#object4').val(), function (newId) {
+                    if (newId != $('#object4').val()) {
+                        $('#object4').val(newId);
+                        onChange();
+                    }
+                });
+            });
+        });
+        $('#select5').click(function () {
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#object5').val(), function (newId) {
+                    if (newId != $('#object5').val()) {
+                        $('#object5').val(newId);
+                        onChange();
+                    }
+                });
+            });
+        });
         // Signal to admin, that no changes yet
         onChange(false);
     }

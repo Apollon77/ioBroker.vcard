@@ -277,7 +277,6 @@ function performNumberString (srcString, ch) {
     if (!srcString)
         return "";
 
-
     // Bestimmen, welches Zeichen eine Nummer ist
     var srcStringIsNr = new Array(srcString.length);
     for (var iSS = 0; iSS < srcString.length; iSS++) {
