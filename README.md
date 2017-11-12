@@ -53,6 +53,9 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 
 ##Change log:
+###0.0.9 (2016-11-12)
+* BAdapter category changed 
+
 ###0.0.8 (2016-05-27)
 * Bugfixing new Channels  
 
