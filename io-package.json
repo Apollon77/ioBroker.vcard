@@ -14,7 +14,7 @@
         "loglevel":                 "info",
         "nondeletable":             true,
         "keywords":                 ["vcard", "contacts"],
-        "type":                     "media",
+        "type":                     "misc-data",
         "main":                     "vcard.js",
         "authors": [
             "hometm"
