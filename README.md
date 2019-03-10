@@ -97,7 +97,7 @@ _Up to now, the adapter was tested with exports od "Mac contacts" and "Outlook" 
 
 
 ## License
-The MIT License (MIT)
+![Number of Installations](http://iobroker.live/badges/vcard-installed.svg) ![Number of Installations](http://iobroker.live/badges/vcard-stable.svg) The MIT License (MIT)
 
 Copyright (c) 2016 hometm 
 
