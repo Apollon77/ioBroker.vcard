@@ -41,7 +41,7 @@
 "use strict";
 
 // you have to require the utils module and call adapter function
-var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+var utils = require('@iobroker/adapter-core'); // Get common adapter utils
 var schedule =     require('node-schedule');
 var fs = require ('fs');
 var dailyScheduler=null;
